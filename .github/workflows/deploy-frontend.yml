@@ -21,9 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify files
-        run: ls -R
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -31,16 +28,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: hospital-frontend
 
       - name: Build project
         run: npm run build
-        working-directory: hospital-frontend
 
       - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: hospital-frontend/dist
+          path: dist  # Vite outputs to dist by default
 
   deploy:
     needs: build
